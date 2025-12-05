@@ -15,8 +15,8 @@ let searchResults = [];
 let presentWindow = null;
 
 // separate font sizes
-let centerFontSizePx = Number(localStorage.getItem("centerFontSizePx") || 20);
-let presenterFontSizePx = Number(localStorage.getItem("presenterFontSizePx") || 40);
+let centerFontSizePx = Number(localStorage.getItem("centerFontSizePx") || 10);
+let presenterFontSizePx = Number(localStorage.getItem("presenterFontSizePx") || 20);
 
 // cached DOM elements
 const els = {};
@@ -187,8 +187,7 @@ function buildBibleStructure() {
     const displayName = meta.displayName;
 
     bible[bookSlug][chapter][verse] = {
-      // ⬇️ THIS is the only changed line
-      text: cleanVerseText(value.text || ""),
+      text: value.text || "",
       reference: value.reference || `${displayName} ${chapter}:${verse}`,
     };
 
@@ -812,20 +811,4 @@ function capitalizeWords(str) {
     .filter(Boolean)
     .map((w) => w[0].toUpperCase() + w.slice(1).toLowerCase())
     .join(" ");
-}
-
-
-function cleanVerseText(text) {
-  if (!text) return "";
-
-  let cleaned = text;
-
-  // 1) Remove a leading pilcrow superscription like:
-  //    "¶ A Psalm of David. The LORD is my shepherd..."
-  cleaned = cleaned.replace(/^¶\s*[^.]*\.\s*/u, "");
-
-  // 2) Remove any remaining "¶" characters anywhere in the verse
-  cleaned = cleaned.replace(/¶\s*/gu, "");
-
-  return cleaned.trim();
 }
