@@ -15,8 +15,8 @@ let searchResults = [];
 let presentWindow = null;
 
 // separate font sizes
-let centerFontSizePx = 20;
-let presenterFontSizePx = 40;
+let centerFontSizePx = 80;
+let presenterFontSizePx = 100;
 
 // cached DOM elements
 const els = {};
