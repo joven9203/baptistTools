@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Neon Bible Presenter</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <!-- LEFT PANEL: DROPDOWNS + PRESENT BUTTON -->
+    <aside class="panel panel-left">
+      <header class="panel-header">
+        <h1 class="app-title">Bible Console</h1>
+        <p class="app-subtitle">KJV 1611</p>
+      </header>
+
+      <section class="control-group">
+        <!-- Book dropdown -->
+        <div class="control-block">
+          <label for="bookSelect" class="control-label">Book</label>
+          <select id="bookSelect">
+            <option value="">Select a book...</option>
+          </select>
+        </div>
+
+        <!-- Chapter dropdown -->
+        <div class="control-block">
+          <label for="chapterSelect" class="control-label">Chapter</label>
+          <select id="chapterSelect" disabled>
+            <option value="">Select a chapter...</option>
+          </select>
+        </div>
+
+        <!-- Verse dropdown -->
+        <div class="control-block">
+          <label for="verseSelect" class="control-label">Verse</label>
+          <select id="verseSelect" disabled>
+            <option value="">Select a verse...</option>
+          </select>
+        </div>
+      </section>
+
+      <!-- PRESENT BUTTON -->
+      <section class="present-section">
+        <button id="presentBtn" class="present-button" type="button">
+          Present Verse
+        </button>
+        <p class="present-hint">
+          Open a clean verse view on a second screen.
+        </p>
+      </section>
+    </aside>
+
+    <!-- CENTER PANEL: SEARCH + CURRENT VERSE -->
+    <main class="panel panel-center">
+      <!-- Search dropdown area -->
+      <section class="search-shell">
+        <button id="searchToggle" class="search-toggle" type="button">
+          <span>Search</span>
+          <span>▼</span>
+        </button>
+
+        <div id="searchDropdown" class="search-dropdown" hidden>
+          <div class="search-section">
+            <p class="search-label">Search Type</p>
+            <div class="search-options">
+              <label>
+                <input
+                  type="radio"
+                  name="searchMode"
+                  value="reference"
+                  checked
+                />
+                Reference (e.g. John 3:16)
+              </label>
+              <label>
+                <input type="radio" name="searchMode" value="keyword" />
+                Keyword (e.g. faith)
+              </label>
+            </div>
+          </div>
+
+          <div class="search-section">
+            <p class="search-label">Scope (for keyword search)</p>
+            <select id="searchScope">
+              <option value="bible" selected>Whole Bible</option>
+              <option value="book">Current Book</option>
+              <option value="chapter">Current Chapter</option>
+            </select>
+          </div>
+
+          <div class="search-section search-input-row">
+            <input
+              id="searchInput"
+              type="text"
+              placeholder="Enter reference or keyword..."
+              autocomplete="off"
+            />
+            <button id="searchSubmit" type="button">Go</button>
+          </div>
+
+          <div class="search-section search-actions">
+            <button id="searchClear" type="button">Clear Search</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Current verse display -->
+      <section class="verse-display">
+        <header class="verse-header">
+          <div id="currentReference" class="current-reference">
+            No verse selected
+          </div>
+        </header>
+
+        <article class="verse-body">
+          <p id="currentText" class="current-text">
+            Select a book, chapter, and verse from the left, or use the search
+            dropdown above.
+          </p>
+        </article>
+
+        <!-- Prev / next + font size -->
+        <footer class="verse-footer">
+          <div class="verse-nav-group">
+            <button id="prevVerseBtn" type="button">Prev</button>
+            <button id="nextVerseBtn" type="button">Next</button>
+          </div>
+
+          <div class="font-size-controls">
+            <button id="fontMinus" type="button" class="font-btn">A−</button>
+            <button id="fontPlus" type="button" class="font-btn">A+</button>
+          </div>
+        </footer>
+      </section>
+
+      <!-- Status line / messages -->
+      <section class="status-bar">
+        <p id="statusMessage">Loading Bible data…</p>
+      </section>
+    </main>
+
+    <!-- RIGHT PANEL: VERSE LIST -->
+    <aside class="panel panel-right">
+      <header class="panel-header">
+        <div id="versesHeader" class="verses-header">
+          Verses
+        </div>
+        <div id="versesSubHeader" class="verses-subheader">
+          Select a book and chapter to view verses.
+        </div>
+      </header>
+
+      <section id="versesList" class="verses-list">
+        <!-- Verse rows will be generated by JS -->
+      </section>
+    </aside>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
