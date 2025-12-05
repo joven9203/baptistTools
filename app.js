@@ -15,8 +15,8 @@ let searchResults = [];
 let presentWindow = null;
 
 // separate font sizes
-let centerFontSizePx = Number(localStorage.getItem("centerFontSizePx") || 10);
-let presenterFontSizePx = Number(localStorage.getItem("presenterFontSizePx") || 20);
+let centerFontSizePx = Number(localStorage.getItem("centerFontSizePx") || 20);
+let presenterFontSizePx = Number(localStorage.getItem("presenterFontSizePx") || 40);
 
 // cached DOM elements
 const els = {};
