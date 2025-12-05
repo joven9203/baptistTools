@@ -94,7 +94,6 @@ function wireEvents() {
     centerFontSizePx = Math.max(8, centerFontSizePx - 1);
     presenterFontSizePx = Math.max(12, presenterFontSizePx - 2);
     applyCenterFontSize(centerFontSizePx);
-    saveFontSizes();
     pushCurrentVerseToPresenter();
   });
 
@@ -103,7 +102,6 @@ function wireEvents() {
     centerFontSizePx = Math.min(32, centerFontSizePx + 1);
     presenterFontSizePx = Math.min(80, presenterFontSizePx + 2);
     applyCenterFontSize(centerFontSizePx);
-    saveFontSizes();
     pushCurrentVerseToPresenter();
   });
 
@@ -664,10 +662,7 @@ function applyCenterFontSize(px) {
   els.currentText.style.fontSize = px + "px";
 }
 
-function saveFontSizes() {
-  localStorage.setItem("centerFontSizePx", centerFontSizePx);
-  localStorage.setItem("presenterFontSizePx", presenterFontSizePx);
-}
+
 
 // ======== PRESENTER POPUP ========
 
