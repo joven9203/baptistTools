@@ -1,4 +1,4 @@
-// ======== GLOBAL STATE ========
+﻿// ======== GLOBAL STATE ========
 
 let bibleFlat = null;              // flat JSON from kjv1611.json
 let bible = {};                    // structured: bible[bookSlug][chapter][verse]
@@ -91,8 +91,8 @@ function wireEvents() {
   // Font size buttons
   els.fontMinus.addEventListener("click", () => {
     // center -1, presenter -2
-    centerFontSizePx = Math.max(8, centerFontSizePx - 1);
-    presenterFontSizePx = Math.max(12, presenterFontSizePx - 2);
+    centerFontSizePx = centerFontSizePx - 1;
+    presenterFontSizePx = presenterFontSizePx - 2;
     applyCenterFontSize(centerFontSizePx);
     pushCurrentVerseToPresenter();
   });
@@ -124,7 +124,7 @@ function wireEvents() {
 
 async function loadBibleData() {
   try {
-    els.statusMessage.textContent = "Loading Bible data…";
+    els.statusMessage.textContent = "Loading Bible data...";
 
     const res = await fetch("kjv1611.json");
     if (!res.ok) throw new Error("Failed to load kjv1611.json");
@@ -377,7 +377,7 @@ function renderSearchResults(list) {
 
     const txt = document.createElement("div");
     txt.className = "verse-row-text";
-    txt.textContent = `${item.reference} — ${item.text}`;
+    txt.textContent = `${item.reference} - ${item.text}`;
 
     row.appendChild(num);
     row.appendChild(txt);
@@ -807,3 +807,5 @@ function capitalizeWords(str) {
     .map((w) => w[0].toUpperCase() + w.slice(1).toLowerCase())
     .join(" ");
 }
+
+
