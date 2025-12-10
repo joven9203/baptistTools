@@ -99,8 +99,8 @@ function wireEvents() {
 
   els.fontPlus.addEventListener("click", () => {
     // center +1, presenter +2
-    centerFontSizePx = Math.min(32, centerFontSizePx + 1);
-    presenterFontSizePx = Math.min(80, presenterFontSizePx + 2);
+    centerFontSizePx = centerFontSizePx + 1;
+    presenterFontSizePx = presenterFontSizePx + 2;
     applyCenterFontSize(centerFontSizePx);
     pushCurrentVerseToPresenter();
   });
