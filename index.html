@@ -1,61 +1,163 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <title>Bible Console</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Motivate Me (Badly)</title>
   <link rel="stylesheet" href="style.css" />
 </head>
-<body class="mood-happy">
-  <div class="background-glow"></div>
-  <div class="page">
-    <header class="hero">
-      <div class="hero-text">
-        <p class="eyebrow">Terrible Motivation Generator</p>
-        <h1>Motivate Me (Badly)</h1>
-        <p class="subhead">Choose a mood. Regret the advice.</p>
-      </div>
-      <div class="mood-selector" aria-label="Select a mood">
-        <button class="mood-btn" data-mood="happy">😄 <span>Happy</span></button>
-        <button class="mood-btn" data-mood="sad">😔 <span>Sad</span></button>
-        <button class="mood-btn" data-mood="angry">😡 <span>Angry</span></button>
-        <button class="mood-btn" data-mood="chill">😌 <span>Chill</span></button>
-      </div>
-    </header>
+<body>
+  <div class="app-shell">
+    <!-- LEFT PANEL: DROPDOWNS + PRESENT BUTTON -->
+    <aside class="panel panel-left">
+      <header class="panel-header">
+        <h1 class="app-title">Bible Console</h1>
+        <p class="app-subtitle">KJV 1611</p>
+      </header>
 
-    <main class="content">
-      <section class="quote-card">
-        <div class="quote-meta">
-          <span id="moodBadge" class="mood-badge">Happy</span>
-          <span id="copyStatus" class="status-pill" aria-live="polite"></span>
+      <section class="control-group">
+        <!-- Book dropdown -->
+        <div class="control-block">
+          <label for="bookSelect" class="control-label">Book</label>
+          <select id="bookSelect">
+            <option value="">Select a book...</option>
+          </select>
         </div>
-        <blockquote id="quoteText" class="quote-text">
-          Smile like nothing's wrong. It probably is.
-        </blockquote>
+
+        <!-- Chapter dropdown -->
+        <div class="control-block">
+          <label for="chapterSelect" class="control-label">Chapter</label>
+          <select id="chapterSelect" disabled>
+            <option value="">Select a chapter...</option>
+          </select>
+        </div>
+
+        <!-- Verse dropdown -->
+        <div class="control-block">
+          <label for="verseSelect" class="control-label">Verse</label>
+          <select id="verseSelect" disabled>
+            <option value="">Select a verse...</option>
+          </select>
+        </div>
       </section>
 
-      <section class="actions">
-        <button id="generateBtn" class="action-btn primary">Generate</button>
-        <button id="copyBtn" class="action-btn ghost">Copy</button>
-        <button id="saveBtn" class="action-btn ghost">Save ★</button>
+      <!-- PRESENT BUTTON -->
+      <section class="present-section">
+        <button id="presentBtn" class="present-button" type="button">
+          Present Verse
+        </button>
+        <p class="present-hint">
+          Open a clean verse view on a second screen.
+        </p>
       </section>
+    </aside>
 
-      <section class="favorites">
-        <header class="favorites-header">
-          <div>
-            <p class="eyebrow">Favorites</p>
-            <h2>Saved bad advice</h2>
+    <!-- CENTER PANEL: SEARCH + CURRENT VERSE -->
+    <main class="panel panel-center">
+      <!-- Search dropdown area -->
+      <section class="search-shell">
+        <button id="searchToggle" class="search-toggle" type="button">
+          <span>Search</span>
+          <span aria-hidden="true">&#9662;</span>
+        </button>
+
+        <div id="searchDropdown" class="search-dropdown" hidden>
+          <div class="search-section">
+            <p class="search-label">Search Type</p>
+            <div class="search-options">
+              <label>
+                <input
+                  type="radio"
+                  name="searchMode"
+                  value="reference"
+                  checked
+                />
+                Reference (e.g. John 3:16)
+              </label>
+              <label>
+                <input type="radio" name="searchMode" value="keyword" />
+                Keyword (e.g. faith)
+              </label>
+            </div>
           </div>
-          <button id="clearFavBtn" class="tiny-btn">Clear all</button>
-        </header>
-        <div id="favoritesList" class="favorites-list">
-          <p class="empty">Nothing saved yet. Lower your standards and hit “Save”.</p>
+
+          <div class="search-section">
+            <p class="search-label">Scope (for keyword search)</p>
+            <select id="searchScope">
+              <option value="bible" selected>Whole Bible</option>
+              <option value="book">Current Book</option>
+              <option value="chapter">Current Chapter</option>
+            </select>
+          </div>
+
+          <div class="search-section search-input-row">
+            <input
+              id="searchInput"
+              type="text"
+              placeholder="Enter reference or keyword..."
+              autocomplete="off"
+            />
+            <button id="searchSubmit" type="button">Go</button>
+          </div>
+
+          <div class="search-section search-actions">
+            <button id="searchClear" type="button">Clear Search</button>
+          </div>
         </div>
+      </section>
+
+      <!-- Current verse display -->
+      <section class="verse-display">
+        <header class="verse-header">
+          <div id="currentReference" class="current-reference">
+            No verse selected
+          </div>
+        </header>
+
+        <article class="verse-body">
+          <p id="currentText" class="current-text">
+            Select a book, chapter, and verse from the left, or use the search
+            dropdown above.
+          </p>
+        </article>
+
+        <!-- Prev / next + font size -->
+        <footer class="verse-footer">
+          <div class="verse-nav-group">
+            <button id="prevVerseBtn" type="button">Prev</button>
+            <button id="nextVerseBtn" type="button">Next</button>
+          </div>
+
+          <div class="font-size-controls">
+            <button id="fontMinus" type="button" class="font-btn">A-</button>
+            <button id="fontPlus" type="button" class="font-btn">A+</button>
+          </div>
+        </footer>
+      </section>
+
+      <!-- Status line / messages -->
+      <section class="status-bar">
+        <p id="statusMessage">Loading Bible data...</p>
       </section>
     </main>
+
+    <!-- RIGHT PANEL: VERSE LIST -->
+    <aside class="panel panel-right">
+      <header class="panel-header">
+        <div id="versesHeader" class="verses-header">
+          Verses
+        </div>
+        <div id="versesSubHeader" class="verses-subheader">
+          Select a book and chapter to view verses.
+        </div>
+      </header>
+
+      <section id="versesList" class="verses-list">
+        <!-- Verse rows will be generated by JS -->
+      </section>
+    </aside>
   </div>
 
-  <script src="quotes.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
